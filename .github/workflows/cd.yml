@@ -23,12 +23,8 @@ jobs:
 
             - name: "Download build files"
               uses: actions/download-artifact@v3
-              with:
-                name: build
-
-            - name: "Deploy to vercel"
-              run: vercel --prod --token=$VERCEL_TOKEN --confirm
-              env:
-                VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+            
+            - name: "List directories"
+              run: ls -R
 
             
