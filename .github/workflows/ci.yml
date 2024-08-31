@@ -31,6 +31,9 @@ jobs:
             - name: "List directories"
               run: ls
 
+            - name: "Run lint"
+              run: npm run lint
+
             - name: "Run tests"
               run: npm test
 
