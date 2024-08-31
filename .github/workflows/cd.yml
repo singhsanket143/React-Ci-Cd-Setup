@@ -31,6 +31,6 @@ jobs:
             - name: "Deploy to vercel"
               run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm
 
-  
+
 
             
