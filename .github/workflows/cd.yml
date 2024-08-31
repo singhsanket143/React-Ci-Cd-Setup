@@ -27,9 +27,11 @@ jobs:
                 name: build
                 run-id: ${{ github.event.workflow_run.id }}
                 github-token: ${{ github.token }}
-
             
-            - name: "List directories"
-              run: ls -R
+            - name: "Deploy to vercel"
+              run: vercel --prod --token=$VERCEL_TOKEN --confirm
+              env:
+                VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  
 
             
