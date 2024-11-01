@@ -1,13 +1,20 @@
 pipeline {
     agent any
+    options {
+        skipDefaultCheckout(true) // Prevents automatic checkout at the start of the pipeline
+    }
     stages {
-
-        stage ('Clean up code') {
+        stage('Clean Workspace') {
             steps {
-                cleanWs()
-            }   
+                cleanWs() // Ensures the workspace is cleaned before any code is checked out
+            }
         }
-
+        stage('Checkout Code') {
+            steps {
+                // Explicitly check out the code
+                checkout scm
+            }
+        }
         stage('Build') {
             agent {
                 docker {
@@ -16,18 +23,15 @@ pipeline {
                     reuseNode true // Reuse the node for the next stages
                 }
             }
-
             steps {
-
-                    sh '''
-                        ls -l
-                        node --version
-                        npm --version
-                        npm install
-                        npm run build
-                        ls -l
-                    '''
-                
+                sh '''
+                    ls -l
+                    node --version
+                    npm --version
+                    npm install
+                    npm run build
+                    ls -l
+                '''
             }
         }
     }
