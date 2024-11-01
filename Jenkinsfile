@@ -13,12 +13,10 @@ pipeline {
             steps {
                 sh '''
                     ls -l
-                    export NPM_CONFIG_CACHE=$(pwd)/.npm
                     node --version
                     npm --version
-                    rm -rf node_modules package-lock.json
                     npm --version
-                    npm ci
+                    npm install
                     npm run build
                     ls -l
                 '''
