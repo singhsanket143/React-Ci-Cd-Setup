@@ -12,11 +12,9 @@ pipeline {
             steps {
                 sh '''
                     ls -l
-                    npm cache clean --force 
                     node --version
                     npm --version
-                    rm -rf package-lock.json
-                    npm i
+                    npm ci
                     npm run build
                     ls -l
                 '''
