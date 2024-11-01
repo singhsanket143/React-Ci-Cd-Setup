@@ -5,6 +5,7 @@ pipeline {
             agent {
                 docker {
                     image 'node:20-alpine'
+                    args '-u root'
                     reuseNode true // Reuse the node for the next stages
                 }
             }
@@ -12,6 +13,7 @@ pipeline {
             steps {
                 sh '''
                     ls -l
+                    export NPM_CONFIG_CACHE=$(pwd)/.npm
                     node --version
                     npm --version
                     rm -rf node_modules package-lock.json
