@@ -12,11 +12,8 @@ pipeline {
 
             steps {
 
-                step {
                     cleanWs()
-                }
 
-                step {
                     sh '''
                         ls -l
                         node --version
@@ -25,7 +22,6 @@ pipeline {
                         npm run build
                         ls -l
                     '''
-                }
                 
             }
         }
