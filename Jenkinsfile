@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh '''
                     ls -l
-                    sudo npm cache clean --force 
+                    npm cache clean --force 
                     node --version
                     npm --version
                     rm -rf package-lock.json
