@@ -1,6 +1,13 @@
 pipeline {
     agent any
     stages {
+
+        stage ('Clean up code') {
+            steps {
+                cleanWs()
+            }   
+        }
+
         stage('Build') {
             agent {
                 docker {
@@ -11,8 +18,6 @@ pipeline {
             }
 
             steps {
-
-                    cleanWs()
 
                     sh '''
                         ls -l
