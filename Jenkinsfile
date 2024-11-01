@@ -1,7 +1,7 @@
 pipeline {
     agent any
     options {
-        skipDefaultCheckout(true)
+        skipDefaultCheckout(true) // Skip the default checkout
     }
     stages {
 
@@ -13,7 +13,7 @@ pipeline {
 
         stage('Checkout using SCM') {
             steps {
-                checkout scm
+                checkout scm // Checkout the code
             }
         }
 
@@ -33,10 +33,27 @@ pipeline {
                         node --version
                         npm --version
                         npm install
+
                         npm run build
                         ls -l
                     '''
                 
+            }
+        }
+
+        stage('Test') {
+            agent {
+                docker {
+                    image 'node:22.11.0-alpine3.20'
+                    args '-u root'
+                    reuseNode true // Reuse the node for the next stages
+                }
+            }
+
+            steps {
+                sh '''
+                    npm run test
+                '''
             }
         }
     }
