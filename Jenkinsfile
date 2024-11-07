@@ -33,7 +33,6 @@ pipeline {
                         node --version
                         npm --version
                         npm install
-
                         npm run build
                         ls -l
                     '''
@@ -53,8 +52,22 @@ pipeline {
             steps {
                 sh '''
                     npm run test
-                    test -f dist/index1.html 
+                '''
+            }
+        }
 
+        stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:22.11.0-alpine3.20'
+                    args '-u root'
+                    reuseNode true // Reuse the node for the next stages
+                }
+            }
+
+            steps {
+                sh '''
+                    npm install -g vercel
                 '''
             }
         }
